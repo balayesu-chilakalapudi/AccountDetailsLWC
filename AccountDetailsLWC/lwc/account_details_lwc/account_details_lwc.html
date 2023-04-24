@@ -1,0 +1,1027 @@
+<template>
+    <template if:true={recordId}>
+        <lightning-quick-action-panel header="Deal Center">
+            <div id="container" style="margin:1%;">
+                <div id="top_panel">
+                    <div class="slds-grid slds-wrap" style="padding:1%;border:1px solid gray">
+                        <div class="slds-col slds-size_2-of-5" style="padding:1%;">
+                            <div class="slds-grid slds-wrap">
+                                <div class="slds-col slds-size_1-of-2">
+                                    Account Status <br />
+                                    <lightning-formatted-text value={account_status}>
+                                    </lightning-formatted-text>
+                                </div>
+                                <div class="slds-col slds-size_1-of-2">
+                                    Home <br />
+                                    <lightning-formatted-text value={data_obj.home}></lightning-formatted-text>
+                                </div>
+                            </div>
+                            <br />
+                            <div class="slds-grid slds-wrap">
+                                <div class="slds-col slds-size_1-of-2">
+                                    Collector <br />
+                                    <lightning-formatted-text value={data_obj.collector}></lightning-formatted-text>
+                                </div>
+                                <div class="slds-col slds-size_1-of-2">
+                                    Work <br />
+                                    <lightning-formatted-text value={data_obj.work}></lightning-formatted-text>
+                                </div>
+                            </div>
+                            <br />
+                            <div class="slds-grid slds-wrap">
+                                <div class="slds-col slds-size_1-of-2">
+                                    Lien Holder <br />
+                                    <lightning-formatted-text value={data_obj.lien_holder}></lightning-formatted-text>
+                                </div>
+                                <div class="slds-col slds-size_1-of-2">
+                                    Mobile <br />
+                                    <lightning-formatted-text value={data_obj.mobile}></lightning-formatted-text>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="slds-col slds-size_1-of-5"
+                            style="padding:1%;border-right:1px solid gray;border-left:1px solid gray">
+                            Stock <br />
+                            <lightning-formatted-text value={data_obj.stack}></lightning-formatted-text>
+                            <br /><br />
+                            VIN <br />
+                            <lightning-formatted-text value={data_obj.vin}></lightning-formatted-text>
+                            <br /><br />
+                            Call Status <br />
+                            <lightning-formatted-text value={data_obj.call_status}></lightning-formatted-text>
+                            <br /><br />
+                            Insurance <br />
+                            <lightning-formatted-text value={data_obj.insurance}></lightning-formatted-text>
+
+                        </div>
+                        <div class="slds-col slds-size_2-of-5" style="padding:1%">
+                            <div class="slds-grid slds-wrap">
+                                <div class="slds-col slds-size_1-of-2">
+                                    <lightning-input type="text" label="Payment Type" variant="label-stacked"
+                                        value={data_obj.payment_type} disabled="true"></lightning-input>
+                                </div>
+                                <div class="slds-col slds-size_1-of-2">
+                                    <lightning-input type="text" label="Status" variant="label-stacked"
+                                        value={data_obj.status} disabled="true"></lightning-input>
+                                </div>
+                            </div>
+                            <br />
+                            <div class="slds-grid slds-wrap">
+                                <div class="slds-col slds-size_1-of-2">
+                                    <lightning-input type="text" label="Due Date" variant="label-stacked"
+                                        value={data_obj.due_date} disabled="true"></lightning-input>
+                                </div>
+                                <div class="slds-col slds-size_1-of-2">
+                                    <lightning-input type="text" label="Due Amount" variant="label-stacked"
+                                        value={data_obj.due_amount} disabled="true"></lightning-input>
+                                </div>
+                            </div>
+                            <br />
+                            <div class="slds-grid slds-wrap">
+                                <div class="slds-col slds-size_1-of-2">
+                                    <lightning-button variant="brand" label="Take Payment" title="Take Payment"
+                                        onclick={handleTakePaymentClick} class="slds-m-left_x-small"></lightning-button>
+                                </div>
+                                <div class="slds-col slds-size_1-of-2">
+                                    <lightning-button variant="brand" label="Credit/Fee" title="Credit/Fee"
+                                        onclick={handleClick} class="slds-m-left_x-small"></lightning-button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br />
+                <div id="tab_panel" style="border:1px solid gray">
+                    <lightning-tabset>
+                        <lightning-tab label="Account Details">
+                            <div style="padding:1%">
+                                <div class="slds-grid slds-wrap">
+                                    <div class="slds-col slds-size_1-of-5">
+                                        <lightning-input type="text" label="Last Paid Date" variant="label-stacked"
+                                            value={data_obj.last_paid_date} disabled="true"></lightning-input>
+                                        <br />
+                                        <lightning-input type="text" label="Remaing Balance" variant="label-stacked"
+                                            value={data_obj.remaining_balance} disabled="true"></lightning-input>
+                                        <br />
+                                        Pay Off &nbsp;&nbsp;<button onclick={handlepayoffclick}>...</button>
+                                        <lightning-input type="text" label="Pay Off" variant="label-hidden"
+                                            value={data_obj.pay_off} disabled="true"></lightning-input>
+                                       
+                                        <br />
+                                        <lightning-input type="text" label="Next Pay Date" variant="label-stacked"
+                                            value={data_obj.next_pay_date} disabled="true"></lightning-input>
+                                        <br />
+                                    </div>
+                                    <div class="slds-col slds-size_1-of-5" style="border-left:none;border-right:none">
+                                        <lightning-input type="text" label="Insurance Status" variant="label-stacked"
+                                            value={data_obj.insurance_status} disabled="true"></lightning-input>
+                                        <br />
+                                        <lightning-input type="text" label="Auto Pay Status" variant="label-stacked"
+                                            value={data_obj.auto_pay_status} disabled="true"></lightning-input>
+                                        <br />
+                                        <lightning-input type="text" label="Repo Status" variant="label-stacked"
+                                            value={data_obj.repo_status} disabled="true"></lightning-input>
+                                        <br />
+                                        <lightning-input type="text" label="Collection Status" variant="label-stacked"
+                                            value={data_obj.collection_status} disabled="true"></lightning-input>
+                                        <br />
+                                    </div>
+                                    <div class="slds-col slds-size_3-of-5" style="padding-left:1%">
+                                        <table>
+                                            <tr style="border:1px solid gray">
+                                                <td width="70%">Account Condition</td>
+                                                <td width="15%">
+                                                    <lightning-combobox name="progress" label="Status"
+                                                        variant="label-hidden" value={account_condition_picklist_value}
+                                                        placeholder="Select Progress"
+                                                        options={account_condition_picklist_options}
+                                                        onchange={handleChange}></lightning-combobox>
+                                                </td>
+                                                <td width="15%">
+                                                    <lightning-button variant="brand" label="Add" title="Add"
+                                                        onclick={handleClick} class="slds-m-left_x-small">
+                                                    </lightning-button>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="3"></td>
+                                            </tr>
+                                            <tr>
+                                                <td width="70%">
+                                                    <lightning-input type="text" label="TEST" variant="label-hidden"
+                                                        value="test" disabled="true"></lightning-input>
+                                                </td>
+                                                <td width="15%">
+                                                    <lightning-input type="text" label="4/10/2022"
+                                                        variant="label-hidden" value="4/10/2022" disabled="true">
+                                                    </lightning-input>
+                                                </td>
+                                                <td width="15%">
+                                                    <lightning-button-icon icon-name="utility:settings"
+                                                        alternative-text="settings" class="slds-m-left_xx-small"
+                                                        title="Delete"></lightning-button-icon>
+                                                    <lightning-button-icon icon-name="utility:delete"
+                                                        alternative-text="Delete" class="slds-m-left_xx-small"
+                                                        title="Delete"></lightning-button-icon>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--
+                            <div id="delay_counters_panel" style="margin:0% 1%;border:1px solid gray">
+                                <div class="slds-grid slds-wrap" style="padding:1%">
+                                    <div class="slds-col slds-size_1-of-7">
+                                        <center>
+                                            # On Time
+                                            <br />
+                                            0
+                                        </center>
+                                    </div>
+                                    <div class="slds-col slds-size_1-of-7">
+                                        <center>
+                                            # Late 1-15
+                                            <br />
+                                            0
+                                        </center>
+                                    </div>
+                                    <div class="slds-col slds-size_1-of-7">
+                                        <center>
+                                            # Late 16-30
+                                            <br />
+                                            0
+                                        </center>
+                                    </div>
+                                    <div class="slds-col slds-size_1-of-7">
+                                        <center>
+                                            # Late 31-60
+                                            <br />
+                                            0
+                                        </center>
+                                    </div>
+                                    <div class="slds-col slds-size_1-of-7">
+                                        <center>
+                                            # Late 61-90
+                                            <br />
+                                            0
+                                        </center>
+                                    </div>
+                                    <div class="slds-col slds-size_1-of-7">
+                                        <center>
+                                            # Late 90+
+                                            <br />
+                                            0
+                                        </center>
+                                    </div>
+                                    <div class="slds-col slds-size_1-of-7">
+                                        <center>
+                                            # Extended
+                                            <br />
+                                            0
+                                        </center>
+                                    </div>
+                                </div>
+                            </div>
+                        -->
+                            <div id="payment_history_tabset_panel" style="margin:1%">
+                                <lightning-tabset>
+                                    <lightning-tab label="Payment History">
+                                        <div class="slds-grid slds-wrap" style="background-color: #f4f9fd;">
+                                            <div class="slds-col slds-size_1-of-5"
+                                                style="border-right:1px solid gray;padding:0% 1%">
+                                                <lightning-input type="date" name="input1" label="Start Date"
+                                                    variant="label-stacked"
+                                                    onchange={readFromDateFilter}></lightning-input>
+                                            </div>
+                                            <div class="slds-col slds-size_1-of-5"
+                                                style="border-right:1px solid gray;padding:0% 1%">
+                                                <lightning-input type="date" name="input1" label="Start Date"
+                                                    variant="label-stacked"
+                                                    onchange={readToDateFilter}></lightning-input>
+                                            </div>
+                                            <div class="slds-col slds-size_1-of-5" style="padding:0% 1%">
+                                                <br />
+                                                <table border="0">
+                                                    <!--
+                                                    <tr>
+                                                        <td>Type</td>
+                                                        <td> <input type="checkbox" value="">Applied Payments</input></td>
+                                                        <td> <input type="checkbox" value="">Reversed Payments</input></td>
+                                                        <td> <input type="checkbox" value="">Reversal Transactions</input></td>
+                                                    </tr>
+                                                    -->
+                                                    <tr>
+                                                        <td>Sort</td>
+                                                        <td><input type="radio" name="sort" value="DESC"
+                                                                onclick={handleSort} checked="checked">Latest
+                                                            Payment</input></td>
+                                                        <td><input type="radio" name="sort" value="ASC"
+                                                                onclick={handleSort}>Oldest Payment</input></td>
+                                                        <td><!--<input type="radio" name="sort" value="latest" onclick={handleSort}>Latest Update</input>-->
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                            <div class="slds-col slds-size_2-of-5" style="padding:1% 1%">
+                                                <lightning-button variant="brand" label="Apply Filter"
+                                                    title="Apply Filter" onclick={handleApplyFilterClick}
+                                                    class="slds-m-left_x-small"></lightning-button>
+                                                &nbsp;&nbsp;
+                                                <lightning-button variant="brand" label="Delete Recent Payment"
+                                                    title="Delete Recent Payment" onclick={handleDeleteRecentPayment}
+                                                    class="slds-m-left_x-small"></lightning-button>
+                                            </div>
+                                        </div>
+                                        <br />
+                                        <table border="0" style="padding:1%">
+                                            <tr>
+                                                <td
+                                                    style="background-color:#FFFFFF;width:28%;text-align:center;border:1px solid #FFFFFF">
+                                                    <div style="padding:1%;border:1px solid gray">Payment Info</div>
+                                                </td>
+                                                <td
+                                                    style="background-color:#F0F5FC;width:28%;text-align:center;border:1px solid #F0F5FC">
+                                                    <div style="padding:1%;border:1px solid gray">Due Amounts</div>
+                                                </td>
+                                                <td
+                                                    style="background-color:#F5FEF4;width:28%;text-align:center;border:1px solid #F5FEF4">
+                                                    <div style="padding:1%;border:1px solid gray">Paid Amounts</div>
+                                                </td>
+                                                <td
+                                                    style="background-color:#e5fafd;width:16%;text-align:center;border:1px solid #e5fafd">
+                                                    <div style="padding:1%;border:1px solid gray">Balances</div>
+                                                </td>
+                                            </tr>
+                                            <template for:each={paymentHistoryList} for:item="phObj">
+                                                <tr key={phObj.PaymentHistoryId}
+                                                    style="padding-bottom:2%;border-bottom:1px solid gray">
+                                                    <td style="background-color:white;padding:1%">
+                                                        <table border="0">
+                                                            <tr>
+                                                                <td>Type:<br />{phObj.paymentinfoObj.type}</td>
+                                                                <td>Paid:<br />{phObj.paymentinfoObj.paid}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td colspan="2"><br /></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Payment
+                                                                    Schedule:<br />{phObj.paymentinfoObj.pmtschedule}
+                                                                </td>
+                                                                <td>Due:<br />{phObj.paymentinfoObj.due}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td colspan="4"><br /></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Period#:<br />{phObj.paymentinfoObj.pmt}</td>
+                                                                <td>Past:<br />{phObj.paymentinfoObj.past}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td colspan="4"><br /></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td></td>
+                                                                <td style="text-align:right"><a href="#">View</a> | <a
+                                                                        href="#">Receipt</a>
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+                                                    </td>
+                                                    <td style="background-color:#F0F5FC;padding:1%">
+                                                        <table border="0">
+                                                            <tr>
+                                                                <td>Down:<br />${phObj.dueAmountsObj.d}</td>
+                                                                <td>Late Fees:<br /></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td colspan="2"><br /></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Principal:<br />
+                                                                    ${phObj.dueAmountsObj.principal}</td>
+                                                                <td>Other Fees:<br /></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td colspan="2"><br /></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Interest:<br />${phObj.dueAmountsObj.interest}</td>
+                                                                <td>Side Note:<br /></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td colspan="2"><br /></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td></td>
+                                                                <td>Total:<br />${phObj.dueAmountsObj.total}</td>
+                                                            </tr>
+                                                        </table>
+                                                    </td>
+                                                    <td style="background-color:#F5FEF4;padding:1%">
+                                                        <table border="0">
+                                                            <tr>
+                                                                <td>Down:<br />${phObj.paidAmountsObj.d}</td>
+                                                                <td>Late Fees:<br /></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td colspan="2"><br /></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Principal:<br />${phObj.paidAmountsObj.principal}
+                                                                </td>
+                                                                <td>Other Fees:<br /></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td colspan="2"><br /></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Interest:<br />${phObj.paidAmountsObj.i}</td>
+                                                                <td>Side Note:<br /></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td colspan="2"><br /></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td></td>
+                                                                <td>Total:<br />${phObj.paidAmountsObj.total}</td>
+                                                                <td style="width:25%"></td>
+                                                            </tr>
+                                                        </table>
+                                                    </td>
+                                                    <td style="background-color:#e5fafd;padding:1%">
+                                                        <table border="0">
+                                                            <tr>
+                                                                <td colspan="2">Bal
+                                                                    After:<br />${phObj.balanceAmountsObj.balafter}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td colspan="2"><br /></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td colspan="2">Still Due:<br />
+                                                                    ${phObj.balanceAmountsObj.stilldue}
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+                                                    </td>
+                                                </tr>
+
+                                            </template>
+                                        </table>
+                                    </lightning-tab>
+                                    <lightning-tab label="Collection">
+                                    </lightning-tab>
+                                    <lightning-tab label="Promises To Pay">
+                                    </lightning-tab>
+                                    <lightning-tab label="Email / Print">
+                                    </lightning-tab>
+                                </lightning-tabset>
+                            </div>
+                        </lightning-tab>
+                        <lightning-tab label="Collection" title="Collection">
+                            Collection Details
+                        </lightning-tab>
+                        <lightning-tab label="Repo / Charge-Off">
+                            <lightning-record-edit-form object-api-name="Opportunity">
+                                <div class="slds-grid slds-wrap">
+                                    <div class="slds-col slds-size_2-of-5"
+                                        style="padding:1%;border-right:1px solid gray">
+                                        <div class="slds-grid slds-wrap">
+                                            <div class="slds-col slds-size_1-of-2">
+                                                <lightning-input-field field-name="Repo_Status__c"
+                                                    variant="label-stacked" value={repo_opportunity_obj.Repo_Status__c}
+                                                    onchange={readRepoStatus}></lightning-input-field>
+                                            </div>
+                                            <div class="slds-col slds-size_1-of-2">
+                                                <lightning-input-field field-name="Repo_Reason__c"
+                                                    variant="label-stacked" value={repo_opportunity_obj.Repo_Reason__c}
+                                                    onchange={readRepoReason}></lightning-input-field>
+                                            </div>
+                                        </div>
+                                        <br />
+                                        <div class="slds-grid slds-wrap">
+                                            <div class="slds-col slds-size_1-of-2">
+                                                <lightning-input-field field-name="RTC_Date__c" variant="label-stacked"
+                                                    value={repo_opportunity_obj.RTC_Date__c}
+                                                    onchange={readRTCDate}></lightning-input-field>
+                                            </div>
+                                            <div class="slds-col slds-size_1-of-2">
+                                                <lightning-input-field field-name="RTC_Sent__c" variant="label-stacked"
+                                                    value={repo_opportunity_obj.RTC_Sent__c}
+                                                    onchange={readRTCSent}></lightning-input-field>
+                                            </div>
+                                        </div>
+                                        <br />
+                                        <div class="slds-grid slds-wrap">
+                                            <div class="slds-col slds-size_1-of-2">
+                                                <lightning-input-field field-name="Collateral_Status__c"
+                                                    variant="label-stacked"
+                                                    value={repo_opportunity_obj.Collateral_Status__c}
+                                                    onchange={readCollateral_Status}></lightning-input-field>
+                                            </div>
+                                            <div class="slds-col slds-size_1-of-2">
+                                                <lightning-input-field field-name="Location__c" variant="label-stacked"
+                                                    value={repo_opportunity_obj.Location__c}
+                                                    onchange={readLocation}></lightning-input-field>
+                                            </div>
+                                        </div>
+                                        <br />
+                                        <center>
+                                            <div class="slds-grid slds-wrap">
+                                                <div class="slds-col slds-size_1-of-1">
+                                                    <lightning-button variant="brand" label="Print Right to Cure"
+                                                        title="Print Right to Cure" onclick={handlePrintRightToCure}
+                                                        class="slds-m-left_x-small"></lightning-button>
+                                                </div>
+                                            </div>
+                                        </center>
+                                    </div>
+                                    <div class="slds-col slds-size_2-of-5"
+                                        style="padding:1%;border-right:1px solid gray">
+                                        <div class="slds-grid slds-wrap">
+                                            <div class="slds-col slds-size_1-of-2">
+                                                <lightning-input-field field-name="Repo_Company__c"
+                                                    variant="label-stacked" value={repo_opportunity_obj.Repo_Company__c}
+                                                    onchange={readRepo_Company}></lightning-input-field>
+                                            </div>
+                                            <div class="slds-col slds-size_1-of-2">
+                                                <lightning-input-field field-name="Repo_Fees__c" variant="label-stacked"
+                                                    value={repo_opportunity_obj.Repo_Fees__c}
+                                                    onchange={readRepo_Fees}></lightning-input-field>
+                                            </div>
+                                        </div>
+                                        <br />
+                                        <div class="slds-grid slds-wrap">
+                                            <div class="slds-col slds-size_1-of-2">
+                                                <lightning-input-field field-name="Out_for_Repo_Date__c"
+                                                    variant="label-stacked"
+                                                    value={repo_opportunity_obj.Out_for_Repo_Date__c}
+                                                    onchange={readOut_for_Repo_Date}></lightning-input-field>
+                                            </div>
+                                            <div class="slds-col slds-size_1-of-2">
+                                                <lightning-input-field field-name="Repo_Date__c" variant="label-stacked"
+                                                    value={repo_opportunity_obj.Repo_Date__c}
+                                                    onchange={readRepo_Date}></lightning-input-field>
+                                            </div>
+                                        </div>
+                                        <br />
+                                        <div class="slds-grid slds-wrap">
+                                            <div class="slds-col slds-size_1-of-2">
+                                                <lightning-input-field field-name="Hold_Status__c"
+                                                    variant="label-stacked" disabled="true"
+                                                    value={repo_opportunity_obj.Hold_Status__c}
+                                                    onchange={readHold_Status}></lightning-input-field>
+                                            </div>
+                                            <div class="slds-col slds-size_1-of-2">
+                                                <lightning-input-field field-name="Days_on_Hold__c"
+                                                    variant="label-stacked" disabled="true"
+                                                    value={repo_opportunity_obj.Days_on_Hold__c}
+                                                    onchange={readDays_on_Hold}></lightning-input-field>
+                                            </div>
+                                        </div>
+                                        <br />
+
+                                        <div class="slds-grid slds-wrap">
+                                            <div class="slds-col slds-size_1-of-3">
+                                                <lightning-button variant="brand" label="Print Repo Order"
+                                                    title="Print Repo Order" onclick={handlePrintRepoOrder}
+                                                    class="slds-m-left_x-small"></lightning-button>
+                                            </div>
+                                            <div class="slds-col slds-size_1-of-3">
+                                                <lightning-button variant="brand" label="Voluntary Surender"
+                                                    title="Voluntary Surender" onclick={handleVoluntarySurender}
+                                                    class="slds-m-left_x-small"></lightning-button>
+                                            </div>
+                                            <div class="slds-col slds-size_1-of-3">
+                                                <lightning-button variant="brand" label="Righ to redeem"
+                                                    title="Righ to redeem" onclick={handleRightoredeem}
+                                                    class="slds-m-left_x-small"></lightning-button>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="slds-col slds-size_1-of-5" style="padding:1%">
+                                        <div class="slds-grid slds-wrap">
+                                            <div class="slds-col slds-size_1-of-1">
+                                                <lightning-input-field field-name="Charge_Off_Date__c"
+                                                    variant="label-stacked" disabled="true"
+                                                    value={repo_opportunity_obj.Charge_Off_Date__c}></lightning-input-field>
+                                            </div>
+                                        </div>
+                                        <br />
+                                        <div class="slds-grid slds-wrap">
+                                            <div class="slds-col slds-size_1-of-1">
+                                                <lightning-input-field field-name="Bad_Debt_Amount__c"
+                                                    variant="label-stacked" disabled="true"
+                                                    value={repo_opportunity_obj.Bad_Debt_Amount__c}></lightning-input-field>
+                                            </div>
+                                        </div>
+                                        <br />
+                                        <div class="slds-grid slds-wrap">
+                                            <div class="slds-col slds-size_1-of-1">
+                                                <lightning-input-field field-name="Principal_Bad_Debt__c"
+                                                    variant="label-stacked" disabled="true"
+                                                    value={repo_opportunity_obj.Principal_Bad_Debt__c}></lightning-input-field>
+                                            </div>
+                                        </div>
+                                        <br />
+                                        <center>
+                                            <div class="slds-grid slds-wrap">
+                                                <div class="slds-col slds-size_1-of-1">
+                                                    <lightning-button variant="brand" label="Charge-Off Acct"
+                                                        title="Charge-Off Acct" onclick={handleChargeOffAcct}
+                                                        class="slds-m-left_x-small"></lightning-button>
+                                                </div>
+                                            </div>
+                                        </center>
+                                    </div>
+                                </div>
+                                <br />
+                                <lightning-input-field field-name="Repo_Note__c" variant="label-stacked"
+                                    value={repo_opportunity_obj.Repo_Note__c}
+                                    onchange={readRepo_Note}></lightning-input-field>
+
+                                <br />
+                                <div class="slds-grid slds-wrap">
+                                    <div class="slds-col slds-size_1-of-2">
+                                        &nbsp;&nbsp;
+                                    </div>
+                                    <div class="slds-col slds-size_1-of-2" style="text-align:right">
+                                        <lightning-button variant="brand" label="Save Repo Details"
+                                            title="Save Repo Details" onclick={handleRepoSave}
+                                            class="slds-m-left_x-small"></lightning-button>
+                                    </div>
+                                </div>
+                            </lightning-record-edit-form>
+                        </lightning-tab>
+                    </lightning-tabset>
+                </div>
+                <br />
+            </div>
+        </lightning-quick-action-panel>
+    </template>
+    <!-- modal start -->
+    <template if:true={isShowTakePaymentModal}>
+
+        <!--
+        I Used SLDS for this code
+        Here is link https://www.lightningdesignsystem.com/components/modals/
+    -->
+
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true"
+            aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <!-- modal header start -->
+                <header class="slds-modal__header">
+                    <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse"
+                        title="Close" onclick={hideTakePaymentModalBox}>
+                        <lightning-icon icon-name="utility:close" alternative-text="close" variant="inverse"
+                            size="small"></lightning-icon>
+                        <span class="slds-assistive-text">Close</span>
+                    </button>
+                    <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">BHPH Payment</h2>
+                </header>
+
+                <!-- modal body start -->
+                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                    <lightning-record-edit-form object-api-name="Payment_History__c">
+                        <div style="width:99%;overflow:scroll">
+                            <table>
+                                <tr
+                                    style="border:1px solid gray;background-color:rgb(245, 245, 245);height:35px;padding:1%">
+                                    <td>&nbsp;&nbsp;</td>
+                                    <td>&nbsp;&nbsp;</td>
+                                    <td>Account&nbsp;</td>
+                                    <td>&nbsp;&nbsp;</td>
+                                    <td>Buyer&nbsp;</td>
+                                    <td>&nbsp;&nbsp;</td>
+                                    <td>Vehicle &nbsp;</td>
+                                    <td>&nbsp;&nbsp;</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="8"><br /></td>
+                                </tr>
+                                <tr>
+                                    <td>Payment Schedule</td>
+                                    <td> <lightning-combobox name="paymentschedule" label="Payment Schedule"
+                                            class="paymentschedule_combobox_style" variant="label-hidden"
+                                            value={payment_schedule_picklist_value}
+                                            placeholder="Select Payment Schedule"
+                                            options={payment_schedule_picklist_options}
+                                            onchange={handlePaymentScheduleChange} disabled="true">
+                                        </lightning-combobox>
+                                    </td>
+                                    <td>&nbsp;&nbsp;</td>
+                                    <td>Total Due</td>
+                                    <td><lightning-input type="text" label="" variant="label-hidden"
+                                            value={paymentscheduleObj.Balance__c} disabled="true">
+                                        </lightning-input></td>
+                                    <td>&nbsp;&nbsp;</td>
+                                    <td>Total Paid</td>
+                                    <td><lightning-input type="text" label="" variant="label-hidden"
+                                            value={paymentHistoryModal.Total_Paid__c} onchange={readTotalPaid}>
+                                        </lightning-input></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="8"><br /></td>
+                                </tr>
+                                <tr>
+                                    <td>Start Date</td>
+                                    <td>
+                                        <lightning-input-field field-name="Start_Date__c" variant="label-hidden"
+                                            value={paymentscheduleObj.Start_Date__c} disabled="true"
+                                            onchange={readStartDate}></lightning-input-field>
+
+                                    </td>
+                                    <td>&nbsp;&nbsp;</td>
+                                    <td>Principal Due</td>
+                                    <td><lightning-input type="text" label="" variant="label-hidden"
+                                            value={paymentHistoryModal.Principal_Due__c} disabled="true">
+                                        </lightning-input></td>
+                                    <td>&nbsp;&nbsp;</td>
+                                    <td>Principal Paid</td>
+                                    <td><lightning-input type="text" label="" variant="label-hidden"
+                                            value={paymentHistoryModal.Principal_Paid__c} disabled="true">
+                                        </lightning-input></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="8"><br /></td>
+                                </tr>
+                                <tr>
+                                    <td>Due Date</td>
+                                    <td><lightning-input type="date" label="" variant="label-hidden"
+                                            value={paymentscheduleObj.Due_Date__c} disabled="true">
+                                        </lightning-input>
+                                    </td>
+                                    <td>&nbsp;&nbsp;</td>
+                                    <td>Interest Due</td>
+                                    <td><lightning-input type="text" label="" variant="label-hidden"
+                                            value={paymentHistoryModal.Interest_Due__c} disabled="true">
+                                        </lightning-input></td>
+                                    <td>&nbsp;&nbsp;</td>
+                                    <td>interest Paid</td>
+                                    <td><lightning-input type="text" label="" variant="label-hidden"
+                                            value={paymentHistoryModal.Interest_Paid__c} disabled="true">
+                                        </lightning-input></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="8"><br /></td>
+                                </tr>
+                                <tr>
+                                    <td>Effective Date</td>
+                                    <td>
+                                        <lightning-input-field field-name="Effective_Date__c" variant="label-hidden"
+                                            value={paymentHistoryModal.Effective_Date__c}
+                                            onchange={readEffectiveDate}></lightning-input-field>
+                                    </td>
+                                    <td>&nbsp;&nbsp;</td>
+                                    <td>Number of days</td>
+                                    <td><lightning-input type="text" label="" variant="label-hidden"
+                                            value={paymentHistoryModal.Number_of_days__c} disabled="true">
+                                        </lightning-input></td>
+                                    <td>&nbsp;&nbsp;</td>
+                                    <td>Remaining Balance</td>
+                                    <td><lightning-input type="text" label="" variant="label-hidden"
+                                            value={paymentHistoryModal.Remaining_Principal_Amount__c} disabled="true">
+                                        </lightning-input></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="8"><br /></td>
+                                </tr>
+                                <tr>
+                                    <td>Method</td>
+                                    <td> <lightning-input-field field-name="Method__c" variant="label-hidden"
+                                            value={paymentHistoryModal.Method__c}
+                                            onchange={readMethod}></lightning-input-field>
+                                    </td>
+                                    <td>&nbsp;&nbsp;</td>
+                                    <td>per day interest</td>
+                                    <td><lightning-input type="text" label="" variant="label-hidden"
+                                            value={current_payment_schedule.Per_day_interest_formula__c}
+                                            disabled="true">
+                                        </lightning-input></td>
+                                    <td>&nbsp;&nbsp;</td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="8"><br /></td>
+                                </tr>
+                                <!--
+            <tr>
+                <td></td>
+                <td>
+                </td>
+                <td>&nbsp;&nbsp;</td>
+                <td>Other Fees Due</td>
+                <td><lightning-input type="text" label="" variant="label-hidden"
+                    value="" disabled="true">
+                </lightning-input></td>
+                <td>&nbsp;&nbsp;</td>
+                <td>Other Fees Paid</td>
+                <td><lightning-input type="text" label="" variant="label-hidden"
+                    value="" disabled="true">
+                </lightning-input></td>
+            </tr>
+            <tr>
+                <td colspan="8"><br /></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                </td>
+                <td>&nbsp;&nbsp;</td>
+                <td>Side Note Due</td>
+                <td><lightning-input type="text" label="" variant="label-hidden"
+                    value="" disabled="true">
+                </lightning-input></td>
+                <td>&nbsp;&nbsp;</td>
+                <td>Side Note Paid</td>
+                <td><lightning-input type="text" label="" variant="label-hidden"
+                    value="" disabled="true">
+                </lightning-input></td>
+            </tr>
+            <tr>
+                <td colspan="8"><br /></td>
+            </tr>
+            <tr>
+                <td colspan="8">
+                    <textarea rows="3" cols="198"> Type Note Here</textarea>
+                </td>
+            </tr>
+        -->
+                                <tr>
+                                    <td colspan="8"><br /></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </lightning-record-edit-form>
+                </div>
+
+                <!-- modal footer start-->
+                <footer class="slds-modal__footer">
+                    <button class="slds-button slds-button_brand" onclick={saveTakePaymentModalBox}>Save</button>
+                    <button class="slds-button slds-button_neutral" onclick={hideTakePaymentModalBox}>Cancel</button>
+                </footer>
+
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+    <!-- modal end -->
+
+    <!-- modal showCongaSavePrintDialog start -->
+    <template if:true={showCongaSavePrintDialog}>
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true"
+            aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container" style="width:50% !important">
+                <!-- modal header start -->
+                <header class="slds-modal__header">
+                    <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse"
+                        title="Close" onclick={cancelCongaDialog}>
+                        <lightning-icon icon-name="utility:close" alternative-text="close" variant="inverse"
+                            size="small"></lightning-icon>
+                        <span class="slds-assistive-text">Close</span>
+                    </button>
+                    <h2 id="conga-modal-heading-01" class="slds-text-heading_medium slds-hyphenate">
+                        {showCongaSavePrintDialog_Header_Title}</h2>
+                </header>
+                <!-- modal body start -->
+                <div class="slds-modal__content slds-p-around_medium" id="conga-modal-content-id-1">
+                    Please Click on any button below to continue.
+                </div>
+                <footer class="slds-modal__footer">
+                    <button class="slds-button slds-button_success" onclick={saveCongaDoc}>Save Document</button>
+                    <button class="slds-button slds-button_brand" onclick={printCongaDoc}>Download Document</button>
+                    <button class="slds-button slds-button_neutral" onclick={cancelCongaDialog}>Cancel</button>
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+    <!-- modal showCongaSavePrintDialog end -->
+    <!-- modal showCongaSavePrintDialog start -->
+    <template if:true={showChargeOffAcctDialog}>
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true"
+            aria-describedby="chargeoffacct-modal-content-id-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container" style="width:75% !important">
+                <!-- modal header start -->
+                <header class="slds-modal__header">
+                    <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse"
+                        title="Close" onclick={cancelChargeOffAcctDialog}>
+                        <lightning-icon icon-name="utility:close" alternative-text="close" variant="inverse"
+                            size="small"></lightning-icon>
+                        <span class="slds-assistive-text">Close</span>
+                    </button>
+                    <h2 id="chargeOffacct-modal-heading-01" class="slds-text-heading_medium slds-hyphenate">Charge-Off
+                    </h2>
+                </header>
+                <!-- modal body start -->
+                <div class="slds-modal__content slds-p-around_medium" id="chargeoffacct-modal-content-id-1">
+                    <lightning-record-edit-form object-api-name="Opportunity">
+                        <div class="slds-grid slds-wrap">
+                            <div class="slds-col slds-size_1-of-4" style="padding:1%;border-right:0.5px solid gray">
+                                <div class="slds-grid slds-wrap">
+                                    <div class="slds-col slds-size_1-of-1">
+                                        <lightning-input-field field-name="Charge_Off_Date__c" variant="label-stacked"
+                                            value={repo_opportunity_obj.Charge_Off_Date__c}
+                                            onchange={readChargeOffDate}></lightning-input-field>
+                                    </div>
+                                </div>
+                                <br />
+                                <div class="slds-grid slds-wrap">
+                                    <div class="slds-col slds-size_1-of-1">
+                                        <lightning-input-field field-name="Charge_Off_Reason__c" variant="label-stacked"
+                                            value={repo_opportunity_obj.Charge_Off_Reason__c}
+                                            onchange={readChargeOffReason}></lightning-input-field>
+                                    </div>
+                                </div>
+                                <br />
+                                <div class="slds-grid slds-wrap">
+                                    <div class="slds-col slds-size_1-of-1">
+                                        <lightning-input-field field-name="Collateral_Status__c" variant="label-stacked"
+                                            value={repo_opportunity_obj.Collateral_Status__c}
+                                            onchange={readCollateral_Status}></lightning-input-field>
+                                    </div>
+                                </div>
+                                <br />
+                            </div>
+                            <div class="slds-col slds-size_2-of-4" style="padding:1%;border-right:0.5px solid gray">
+                                <div class="slds-grid slds-wrap">
+                                    <div class="slds-col slds-size_1-of-2">
+                                        <lightning-input-field field-name="Restock_Unit__c" variant="label-stacked"
+                                            value={repo_opportunity_obj.Restock_Unit__c}
+                                            onchange={readReStockUnit}></lightning-input-field>
+                                    </div>
+                                    <div class="slds-col slds-size_1-of-2">
+                                        <lightning-input-field field-name="Location__c" variant="label-stacked"
+                                            value={repo_opportunity_obj.Location__c}
+                                            onchange={readLocation}></lightning-input-field>
+                                    </div>
+                                </div>
+                                <br />
+                                <div class="slds-grid slds-wrap">
+                                    <div class="slds-col slds-size_1-of-2">
+                                        <lightning-input-field field-name="Previous_Stock__c" variant="label-stacked"
+                                            value={repo_opportunity_obj.Previous_Stock__c} disabled="true"
+                                            onchange={readPreviousStock}></lightning-input-field>
+                                    </div>
+                                    <div class="slds-col slds-size_1-of-2">
+                                        <lightning-input-field field-name="Current_Mileage__c" variant="label-stacked"
+                                            value={repo_opportunity_obj.Current_Mileage__c}
+                                            onchange={readCurrentMileage}></lightning-input-field>
+                                    </div>
+                                </div>
+                                <br />
+                                <div class="slds-grid slds-wrap">
+                                    <div class="slds-col slds-size_1-of-2">
+                                        <lightning-input-field field-name="New_Stock__c" variant="label-stacked"
+                                            disabled="true" value={repo_opportunity_obj.New_Stock__c}
+                                            onchange={readNewStock}></lightning-input-field>
+                                    </div>
+                                    <div class="slds-col slds-size_1-of-2">
+                                        <lightning-input-field field-name="Current_Value__c" variant="label-stacked"
+                                            value={repo_opportunity_obj.Current_Value__c}
+                                            onchange={readCurrentValue}></lightning-input-field>
+                                    </div>
+                                </div>
+                                <br />
+                            </div>
+                            <div class="slds-col slds-size_1-of-4" style="padding:1%">
+                                <div class="slds-grid slds-wrap">
+                                    <div class="slds-col slds-size_1-of-1">
+                                        <lightning-input-field field-name="Bad_Debt_Amount__c" variant="label-stacked"
+                                            disabled="true"
+                                            value={repo_opportunity_obj.Bad_Debt_Amount__c}></lightning-input-field>
+                                    </div>
+                                </div>
+                                <br />
+                                <div class="slds-grid slds-wrap">
+                                    <div class="slds-col slds-size_1-of-1">
+                                        <lightning-input-field field-name="Principal_Bad_Debt__c"
+                                            variant="label-stacked" disabled="true"
+                                            value={repo_opportunity_obj.Principal_Bad_Debt__c}></lightning-input-field>
+                                    </div>
+                                </div>
+                                <br />
+
+                                <br />
+                            </div>
+                        </div>
+                        <br />
+                        <lightning-input-field field-name="Charge_Off_Note__c" variant="label-stacked"
+                            value={repo_opportunity_obj.Charge_Off_Note__c}
+                            onchange={readChargeOffNote}></lightning-input-field>
+                        <br />
+                    </lightning-record-edit-form>
+                </div>
+                <footer class="slds-modal__footer">
+                    <button class="slds-button slds-button_success" onclick={saveCongaDoc}>Save Document</button>
+                    <button class="slds-button slds-button_brand" onclick={printCongaDoc}>Download Document</button>
+                    <button class="slds-button slds-button_outline-brand" onclick={saveChargeOff}>Charge-Off</button>
+                    <button class="slds-button slds-button_neutral" onclick={cancelChargeOffAcctDialog}>Cancel</button>
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+    <!-- modal showCongaSavePrintDialog end -->
+    <template if:true={payoffpopup_show}>
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true"
+            aria-describedby="chargeoffacct-modal-content-id-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container" style="width:25% !important">
+                <!-- modal header start -->
+                <header class="slds-modal__header">
+                    <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse"
+                        title="Close" onclick={close_payoffpopup}>
+                        <lightning-icon icon-name="utility:close" alternative-text="close" variant="inverse"
+                            size="small"></lightning-icon>
+                        <span class="slds-assistive-text">Close</span>
+                    </button>
+                    <h2 id="payoff-modal-heading-01" class="slds-text-heading_medium slds-hyphenate">Pay-Off</h2>
+                </header>
+                <!-- modal body start -->
+                <div class="slds-modal__content slds-p-around_medium" id="payoff-modal-content-id-1">
+                    <!--
+                    <lightning-record-edit-form object-api-name="Opportunity">
+                    -->
+                        <div class="slds-grid slds-wrap">
+                            <div class="slds-col slds-size_1-of-1">
+                                Latest Paid Date
+                                <lightning-input type="text" value={latestPaidDate} disabled="true"></lightning-input>
+                            </div>
+                        </div>
+                        <br />
+                        <div class="slds-grid slds-wrap">
+                            <div class="slds-col slds-size_1-of-1">
+                                <!--
+                                <lightning-input-field field-name="Date__c" variant="label-stacked" value={payoffdate}
+                                    onchange={readPayoffdate}  ></lightning-input-field>
+                                    -->
+                                    <lightning-input type="date" date-style="short" value={payoffdate} onchange={readPayoffdate}>
+                                    </lightning-input>
+                            </div>
+                        </div>
+                        <br />
+                        <div class="slds-grid slds-wrap">
+                            <div class="slds-col slds-size_1-of-1">
+                                Pay Off
+                                <lightning-input type="text" variant="label-hidden" value={payoff} disabled="true"></lightning-input>
+                            </div>
+                        </div>
+                        <br />
+                        <!--
+                    </lightning-record-edit-form>
+                    -->
+                </div>
+            
+            <footer class="slds-modal__footer">
+                <button class="slds-button slds-button_neutral" onclick={close_payoffpopup}>Cancel</button>
+            </footer>
+        </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+</template>
