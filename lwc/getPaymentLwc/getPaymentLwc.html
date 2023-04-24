@@ -1,0 +1,174 @@
+<!-- modal start -->
+<template>
+    <template if:true={recordId}>
+        <template if:false={isShowTakePaymentModal}>
+            <div class="slds-is-relative">
+                <br /><br />
+                <lightning-spinner alternative-text="Loading..." variant="brand">
+                </lightning-spinner>
+                <br /><br />
+            </div>
+        </template>
+        <template if:true={isShowTakePaymentModal}>
+            <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true"
+                aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+                <div class="slds-modal__container">
+                    <!-- modal header start -->
+                    <header class="slds-modal__header">
+                        <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse"
+                            title="Close" onclick={closeAction}>
+                            <lightning-icon icon-name="utility:close" alternative-text="close" variant="inverse"
+                                size="small"></lightning-icon>
+                            <span class="slds-assistive-text">Close</span>
+                        </button>
+                        <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">BHPH Payment</h2>
+                    </header>
+
+                    <!-- modal body start -->
+                    <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                        <lightning-record-edit-form object-api-name="Payment_History__c">
+                            <div style="width:99%;overflow:scroll">
+                                <table>
+                                    <tr
+                                        style="border:1px solid gray;background-color:rgb(245, 245, 245);height:35px;padding:1%">
+                                        <td>&nbsp;&nbsp;</td>
+                                        <td>&nbsp;&nbsp;</td>
+                                        <td>Account&nbsp;</td>
+                                        <td>&nbsp;&nbsp;</td>
+                                        <td>Buyer&nbsp;</td>
+                                        <td>&nbsp;&nbsp;</td>
+                                        <td>Vehicle &nbsp;</td>
+                                        <td>&nbsp;&nbsp;</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="8"><br /></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Payment Schedule</td>
+                                        <td> <lightning-combobox name="paymentschedule" label="Payment Schedule"
+                                                class="paymentschedule_combobox_style" variant="label-hidden"
+                                                value={payment_schedule_picklist_value}
+                                                placeholder="Select Payment Schedule"
+                                                options={payment_schedule_picklist_options}
+                                                onchange={handlePaymentScheduleChange} disabled="true">
+                                            </lightning-combobox>
+                                        </td>
+                                        <td>&nbsp;&nbsp;</td>
+                                        <td>Total Due</td>
+                                        <td><lightning-input type="text" label="" variant="label-hidden"
+                                                value={paymentscheduleObj.Balance__c} disabled="true">
+                                            </lightning-input></td>
+                                        <td>&nbsp;&nbsp;</td>
+                                        <td>Total Paid</td>
+                                        <td><lightning-input type="text" label="" variant="label-hidden"
+                                                value={paymentHistoryModal.Total_Paid__c} onchange={readTotalPaid}>
+                                            </lightning-input></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="8"><br /></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Start Date</td>
+                                        <td>
+                                            <lightning-input-field field-name="Start_Date__c" variant="label-hidden"
+                                                value={paymentscheduleObj.Start_Date__c} disabled="true"
+                                                onchange={readStartDate}></lightning-input-field>
+
+                                        </td>
+                                        <td>&nbsp;&nbsp;</td>
+                                        <td>Principal Due</td>
+                                        <td><lightning-input type="text" label="" variant="label-hidden"
+                                                value={paymentHistoryModal.Principal_Due__c} disabled="true">
+                                            </lightning-input></td>
+                                        <td>&nbsp;&nbsp;</td>
+                                        <td>Principal Paid</td>
+                                        <td><lightning-input type="text" label="" variant="label-hidden"
+                                                value={paymentHistoryModal.Principal_Paid__c} disabled="true">
+                                            </lightning-input></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="8"><br /></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Due Date</td>
+                                        <td><lightning-input type="date" label="" variant="label-hidden"
+                                                value={paymentscheduleObj.Due_Date__c} disabled="true">
+                                            </lightning-input>
+                                        </td>
+                                        <td>&nbsp;&nbsp;</td>
+                                        <td>Interest Due</td>
+                                        <td><lightning-input type="text" label="" variant="label-hidden"
+                                                value={paymentHistoryModal.Interest_Due__c} disabled="true">
+                                            </lightning-input></td>
+                                        <td>&nbsp;&nbsp;</td>
+                                        <td>interest Paid</td>
+                                        <td><lightning-input type="text" label="" variant="label-hidden"
+                                                value={paymentHistoryModal.Interest_Paid__c} disabled="true">
+                                            </lightning-input></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="8"><br /></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Effective Date</td>
+                                        <td>
+                                            <lightning-input-field field-name="Effective_Date__c" variant="label-hidden"
+                                                value={paymentHistoryModal.Effective_Date__c}
+                                                onchange={readEffectiveDate}></lightning-input-field>
+                                        </td>
+                                        <td>&nbsp;&nbsp;</td>
+                                        <td>Number of days</td>
+                                        <td><lightning-input type="text" label="" variant="label-hidden"
+                                                value={paymentHistoryModal.Number_of_days__c} disabled="true">
+                                            </lightning-input></td>
+                                        <td>&nbsp;&nbsp;</td>
+                                        <td>Remaining Balance</td>
+                                        <td><lightning-input type="text" label="" variant="label-hidden"
+                                                value={paymentHistoryModal.Remaining_Principal_Amount__c}
+                                                disabled="true">
+                                            </lightning-input></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="8"><br /></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Method</td>
+                                        <td> <lightning-input-field field-name="Method__c" variant="label-hidden"
+                                                value={paymentHistoryModal.Method__c}
+                                                onchange={readMethod}></lightning-input-field>
+                                        </td>
+                                        <td>&nbsp;&nbsp;</td>
+                                        <td>per day interest</td>
+                                        <td><lightning-input type="text" label="" variant="label-hidden"
+                                                value={current_payment_schedule.Per_day_interest_formula__c}
+                                                disabled="true">
+                                            </lightning-input></td>
+                                        <td>&nbsp;&nbsp;</td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="8"><br /></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="8"><br /></td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </lightning-record-edit-form>
+                    </div>
+
+                    <!-- modal footer start-->
+                    <footer class="slds-modal__footer">
+                        <button class="slds-button slds-button_brand" onclick={saveTakePaymentModalBox}>Save</button>
+                        <button class="slds-button slds-button_neutral"
+                            onclick={closeAction}>Cancel</button>
+                    </footer>
+
+                </div>
+            </section>
+            <div class="slds-backdrop slds-backdrop_open"></div>
+        </template>
+    </template>
+</template>
+<!-- modal end -->
